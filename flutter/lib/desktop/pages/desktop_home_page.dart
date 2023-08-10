@@ -51,15 +51,15 @@ class _DesktopHomePageState extends State<DesktopHomePage>
 
   @override
   Widget build(BuildContext context) {
+
+    window_size.setWindowMinSize(Size(250,300));
+    window_size.setWindowMaxSize(Size(250,300));
+
     super.build(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildLeftPane(context),
-        const VerticalDivider(width: 1),
-        Expanded(
-          child: buildRightPane(context),
-        ),
       ],
     );
   }
@@ -80,17 +80,6 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                 buildTip(context),
                 buildIDBoard(context),
                 buildPasswordBoard(context),
-                FutureBuilder<Widget>(
-                  future: buildHelpCards(),
-                  builder: (_, data) {
-                    if (data.hasData) {
-                      return data.data!;
-                    } else {
-                      return const Offstage();
-                    }
-                  },
-                ),
-                buildPluginEntry()
               ],
             ),
           ),
@@ -117,7 +106,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         children: [
           Container(
             width: 2,
-            decoration: const BoxDecoration(color: MyTheme.accent),
+            decoration: const BoxDecoration(color: Colors.blue),
           ).marginOnly(top: 5),
           Expanded(
             child: Padding(
@@ -128,7 +117,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                   Container(
                     height: 25,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -141,7 +130,6 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                                   ?.color
                                   ?.withOpacity(0.5)),
                         ).marginOnly(top: 5),
-                        buildPopupMenu(context)
                       ],
                     ),
                   ),
@@ -210,7 +198,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
           Container(
             width: 2,
             height: 52,
-            decoration: BoxDecoration(color: MyTheme.accent),
+            decoration: BoxDecoration(color: Colors.blue),
           ),
           Expanded(
             child: Padding(
@@ -247,31 +235,6 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                             style: TextStyle(fontSize: 15),
                           ),
                         ),
-                      ),
-                      AnimatedRotationWidget(
-                        onPressed: () => bind.mainUpdateTemporaryPassword(),
-                        child: Obx(() => RotatedBox(
-                            quarterTurns: 2,
-                            child: Icon(
-                              Icons.refresh,
-                              color: refreshHover.value
-                                  ? textColor
-                                  : Color(0xFFDDDDDD),
-                              size: 22,
-                            ))),
-                        onHover: (value) => refreshHover.value = value,
-                      ).marginOnly(right: 8, top: 4),
-                      InkWell(
-                        child: Obx(
-                          () => Icon(
-                            Icons.edit,
-                            color:
-                                editHover.value ? textColor : Color(0xFFDDDDDD),
-                            size: 22,
-                          ).marginOnly(right: 8, top: 4),
-                        ),
-                        onTap: () => DesktopSettingPage.switch2page(1),
-                        onHover: (value) => editHover.value = value,
                       ),
                     ],
                   ),

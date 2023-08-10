@@ -155,7 +155,6 @@ pub fn core_main() -> Option<Vec<String>> {
     #[cfg(all(feature = "flutter", feature = "plugin_framework"))]
     #[cfg(not(any(target_os = "android", target_os = "ios")))]
     init_plugins(&args);
-    log::info!("main start args:{:?}", args);
     if args.is_empty() || is_empty_uni_link(&args[0]) {
         std::thread::spawn(move || crate::start_server(false));
     } else {
@@ -255,23 +254,19 @@ pub fn core_main() -> Option<Vec<String>> {
             return None;
         } else if args[0] == "--password" {
             if args.len() == 2 {
-                if crate::platform::is_installed() && is_root() {
+                if is_root() {
                     if let Err(err) = crate::ipc::set_permanent_password(args[1].to_owned()) {
                         println!("{err}");
                     } else {
                         println!("Done!");
                     }
-                } else {
-                    println!("Installation and administrative privileges required!");
-                }
+                } 
             }
             return None;
         } else if args[0] == "--get-id" {
-            if crate::platform::is_installed() && is_root() {
+            if is_root() {
                 println!("{}", crate::ipc::get_id());
-            } else {
-                println!("Installation and administrative privileges required!");
-            }
+            } 
             return None;
         } else if args[0] == "--set-id" {
             if args.len() == 2 {

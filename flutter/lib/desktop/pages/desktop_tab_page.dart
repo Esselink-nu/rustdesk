@@ -68,12 +68,6 @@ class _DesktopTabPageState extends State<DesktopTabPage> {
             backgroundColor: Theme.of(context).colorScheme.background,
             body: DesktopTab(
               controller: tabController,
-              tail: ActionIcon(
-                message: 'Settings',
-                icon: IconFont.menu,
-                onTap: DesktopTabPage.onAddSetting,
-                isClose: false,
-              ),
             )));
     return Platform.isMacOS || kUseCompatibleUiMode
         ? tabWidget
