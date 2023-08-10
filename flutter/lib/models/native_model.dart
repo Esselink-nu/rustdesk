@@ -40,7 +40,7 @@ class PlatformFFI {
   String _homeDir = '';
   F2? _translate;
   final _eventHandlers = <String, Map<String, HandleEvent>>{};
-  late RustdeskImpl _ffiBind;
+  late ItpRemoteSupportImpl _ffiBind;
   late String _appType;
   StreamEventHandler? _eventCallback;
 
@@ -49,7 +49,7 @@ class PlatformFFI {
   static final PlatformFFI instance = PlatformFFI._();
   final _toAndroidChannel = const MethodChannel('mChannel');
 
-  RustdeskImpl get ffiBind => _ffiBind;
+  ItpRemoteSupportImpl get ffiBind => _ffiBind;
   F3? _session_get_rgba;
   F4Dart? _session_get_rgba_size;
   F5Dart? _session_next_rgba;
@@ -171,7 +171,7 @@ class PlatformFFI {
       } catch (e) {
         debugPrint('Failed to get documents directory: $e');
       }
-      _ffiBind = RustdeskImpl(dylib);
+      _ffiBind = ItpRemoteSupportImpl(dylib);
       if (Platform.isLinux) {
         // Start a dbus service, no need to await
         _ffiBind.mainStartDbusServer();
@@ -263,9 +263,9 @@ class PlatformFFI {
   }
 
   /// Start listening to the Rust core's events and frames.
-  void _startListenEvent(RustdeskImpl rustdeskImpl) {
+  void _startListenEvent(ItpRemoteSupportImpl ItpRemoteSupportImpl) {
     final appType = _appType == kAppTypeDesktopRemote ? '$_appType,$kWindowId' : _appType;
-    var sink = rustdeskImpl.startGlobalEventStream(appType: appType);
+    var sink = ItpRemoteSupportImpl.startGlobalEventStream(appType: appType);
     sink.listen((message) {
       () async {
         try {
