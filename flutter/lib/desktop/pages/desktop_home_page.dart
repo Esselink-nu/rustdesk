@@ -78,6 +78,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
             child: Column(
               children: [
                 buildTip(context),
+                SizedBox(height: 15),
                 buildIDBoard(context),
                 buildPasswordBoard(context),
               ],
