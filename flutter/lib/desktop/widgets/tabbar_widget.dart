@@ -396,12 +396,10 @@ class DesktopTab extends StatelessWidget {
                               width: 16,
                               height: 16,
                             )),
-                        Offstage(
-                            offstage: !showTitle,
-                            child: const Text(
-                              "IT Portaal QS",
-                              style: TextStyle(fontSize: 13),
-                            ).marginOnly(left: 2))
+                        const Text(
+                              "QuickSupport",
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                            ).marginOnly(left: 5)
                       ]).marginOnly(
                         left: 5,
                         right: 10,
